@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechCareer Prep - Your IT Job Journey Starts Here</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-color: #e2e8f0;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --gradient-bg: linear-gradient(135deg, #0f172a, #1e293b);
+        }
+
+        [data-theme="light"] {
+            --text-color: #333;
+            --bg-color: #ffffff;
+            --card-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-color);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle, .signin-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle:hover, .signin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            min-height: 100vh;
+            background: var(--bg-color);
+        }
+
+        .section {
+            padding: 4rem 0;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Home Section - Path Structure */
+        .learning-path {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .path-step {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .path-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .path-step::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: -20px;
+            width: 4px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            transform: translateX(-50%);
+        }
+
+        .path-step:first-child::before {
+            display: none;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .step-description {
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Cards Layout */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card h4 {
+            color: var(--accent-color);
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .link-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .link-list li {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .link-list a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .link-list a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Roadmap Visualization */
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .roadmap-item {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+        }
+
+        .roadmap-item::after {
+            content: '↓';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .roadmap-item:last-child::after {
+            display: none;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .profile-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            margin-bottom: 2rem;
+        }
+
+        .profile-header h3 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-details {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission-statement {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* Enhanced Interview Section */
+        .interview-tips {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .tip-category {
+            margin-bottom: 2rem;
+        }
+
+        .tip-category h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .tips-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .tips-list li {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tips-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Forms */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+        }
+
+        .close {
+            color: var(--text-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--bg-color);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-controls {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+            
+            .theme-toggle, .signin-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            nav {
+                padding: 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .path-step {
+                margin: 1rem 0;
+                padding: 1.5rem;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .profile-section {
+                padding: 2rem;
+            }
+            
+            .profile-header h3 {
+                font-size: 1.5rem;
+            }
+            
+            .modal-content {
+                margin: 5% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .path-step {
+                padding: 1rem;
+            }
+            
+            .step-title {
+                font-size: 1.3rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .profile-section {
+                padding: 1.5rem;
+            }
+            
+            .nav-controls {
+                flex-wrap: wrap;
+            }
+            
+            .theme-toggle, .signin-btn {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.6rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section.active {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .card:hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Additional styling for better mobile experience */
+        @media (hover: none) and (pointer: coarse) {
+            .card:hover {
+                transform: none;
+            }
+            
+            .path-step:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <header>
+        <nav class="container">
+            <div class="logo">TechCareer Prep</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('about')">About</a></li>
+                <li><a href="#" onclick="showSection('aptitude')">Aptitude</a></li>
+                <li><a href="#" onclick="showSection('coding')">Coding</a></li>
+                <li><a href="#" onclick="showSection('projects')">Projects</a></li>
+                <li><a href="#" onclick="showSection('communication')">Communication</a></li>
+                <li><a href="#" onclick="showSection('interview')">Interview</a></li>
+                <li><a href="#" onclick="showSection('feedback')">Feedback</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+                <button class="signin-btn" onclick="openSignInModal()">Sign In</button>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <h2>Your IT Career Journey</h2>
+                <div class="learning-path">
+                    <div class="path-step" onclick="showSection('aptitude')">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Aptitude</div>
+                        <div class="step-description">Build strong logical reasoning and quantitative skills</div>
+                    </div>
+                    <div class="path-step" onclick="showSection('coding')">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Coding</div>
+                        <div class="step-description">Master programming languages and data structures</div>
+                    </div>
+                    <div class="path-step" onclick="showSection('projects')">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Projects</div>
+                        <div class="step-description">Build impressive projects to showcase your skills</div>
+                    </div>
+                    <div class="path-step" onclick="showSection('communication')">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Communication</div>
+                        <div class="step-description">Develop verbal and written communication skills</div>
+                    </div>
+                    <div class="path-step" onclick="showSection('interview')">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Interview Preparation</div>
+                        <div class="step-description">Ace technical and HR interviews with confidence</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="profile-section">
+                        <div class="profile-header">
+                            <h3>Meet the Creator</h3>
+                            <div class="profile-details">
+                                <strong>Moulabi</strong><br>
+                                B.Tech Final Year Student<br>
+                                G Pullaiah College of Engineering and Technology
+                            </div>
+                        </div>
+                        <div class="mission-statement">
+                            <p>As a final-year engineering student, I understand the challenges that students face when preparing for IT careers. Throughout my academic journey, I encountered numerous obstacles in finding comprehensive, structured guidance for technical skill development and placement preparation.</p>
+                            <br>
+                            <p>This platform was born from my personal experience of navigating the complex landscape of technical interviews, coding assessments, and skill development. Having witnessed many talented peers struggle due to lack of proper guidance and resources, I created TechCareer Prep to bridge this gap.</p>
+                            <br>
+                            <p><strong>Our Mission:</strong> To provide students with a structured, comprehensive roadmap for IT career preparation, eliminating the confusion and scattered learning that often hinders student success. Every resource, tip, and guideline on this platform has been carefully curated based on industry requirements and real placement experiences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aptitude Section -->
+        <section id="aptitude" class="section">
+            <div class="container">
+                <h2>Aptitude Preparation</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>📚 Syllabus</h3>
+                        <ul class="link-list">
+                            <li>• Logical Reasoning</li>
+                            <li>• Quantitative Aptitude</li>
+                            <li>• Data Interpretation</li>
+                            <li>• Verbal Ability</li>
+                            <li>• Pattern Recognition</li>
+                            <li>• Number Series</li>
+                            <li>• Time & Work Problems</li>
+                            <li>• Profit & Loss</li>
+                            <li>• Probability & Statistics</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🎥 Free Resources</h3>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@CareerRideOfficial" target="_blank">📺 Career Ride - Complete Aptitude Course</a></li>
+                            <li><a href="https://www.indiabix.com/" target="_blank">📖 IndiaBIX - Practice Questions</a></li>
+                            <li><a href="https://www.freshersnow.com/aptitude-questions-and-answers/" target="_blank">📝 Freshers Now - Aptitude Tests</a></li>
+                            <li><a href="https://www.youtube.com/@ArunSharmaCAT" target="_blank">📺 Arun Sharma - Quantitative Aptitude</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coding Section -->
+        <section id="coding" class="section">
+            <div class="container">
+                <h2>Coding & DSA</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>💻 Programming Languages</h3>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@PythonLife1" target="_blank">🐍 Python - Python Life Channel</a></li>
+                            <li><a href="https://www.youtube.com/@Telusko" target="_blank">☕ Java - Telusko</a></li>
+                            <li><a href="https://www.youtube.com/@ApnaCollegeOfficial" target="_blank">☕ Java - Apna College</a></li>
+                            <li><a href="https://www.youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIJFAiKKhOBmQw" target="_blank">⚡ C++ with DSA - Apna College</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>📊 Data Structures & Algorithms</h3>
+                        <h4>Syllabus:</h4>
+                        <ul class="link-list">
+                            <li>• Arrays & Strings</li>
+                            <li>• Linked Lists</li>
+                            <li>• Stacks & Queues</li>
+                            <li>• Trees & Binary Trees</li>
+                            <li>• Graphs</li>
+                            <li>• Sorting & Searching</li>
+                            <li>• Dynamic Programming</li>
+                            <li>• Recursion & Backtracking</li>
+                        </ul>
+                        <h4>Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@ApnaCollegeOfficial" target="_blank">📺 Apna College DSA</a></li>
+                            <li><a href="https://www.youtube.com/@takeUforward" target="_blank">📺 Striver (takeUforward)</a></li>
+                            <li><a href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/" target="_blank">📋 Striver's A2Z DSA Sheet</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🔥 Practice Platforms</h3>
+                        <ul class="link-list">
+                            <li><a href="https://leetcode.com/" target="_blank">💡 LeetCode - Coding Practice</a></li>
+                            <li><a href="https://www.hackerrank.com/" target="_blank">🚀 HackerRank</a></li>
+                            <li><a href="https://www.codechef.com/" target="_blank">👨‍💻 CodeChef</a></li>
+                            <li><a href="https://codeforces.com/" target="_blank">🏆 Codeforces</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2>Projects & Skills</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>🌐 Web Development Roadmap</h3>
+                        <div class="roadmap">
+                            <div class="roadmap-item">HTML Fundamentals</div>
+                            <div class="roadmap-item">CSS & Styling</div>
+                            <div class="roadmap-item">JavaScript Basics</div>
+                            <div class="roadmap-item">Frontend Frameworks (React/Vue)</div>
+                            <div class="roadmap-item">Backend Development (Node.js/Django)</div>
+                            <div class="roadmap-item">Database Management</div>
+                            <div class="roadmap-item">Deployment & DevOps</div>
+                        </div>
+                        <h4>Free Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@freecodecamp" target="_blank">📺 FreeCodeCamp - Complete Web Dev</a></li>
+                            <li><a href="https://www.youtube.com/@WebDevSimplified" target="_blank">📺 Web Dev Simplified</a></li>
+                            <li><a href="https://www.youtube.com/@TheNetNinja" target="_blank">📺 The Net Ninja</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🎨 UI/UX Design Roadmap</h3>
+                        <div class="roadmap">
+                            <div class="roadmap-item">Design Principles</div>
+                            <div class="roadmap-item">Color Theory & Typography</div>
+                            <div class="roadmap-item">Wireframing & Prototyping</div>
+                            <div class="roadmap-item">User Research</div>
+                            <div class="roadmap-item">Design Tools (Figma/Adobe XD)</div>
+                            <div class="roadmap-item">Usability Testing</div>
+                        </div>
+                        <h4>Free Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@DesignCourse" target="_blank">📺 DesignCourse</a></li>
+                            <li><a href="https://www.youtube.com/@AJ&Smart" target="_blank">📺 AJ&Smart - Design Sprints</a></li>
+                            <li><a href="https://www.figma.com/resources/learn-design/" target="_blank">📚 Figma Design Resources</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🤖 Machine Learning Roadmap</h3>
+                        <div class="roadmap">
+                            <div class="roadmap-item">Python & Libraries (NumPy, Pandas)</div>
+                            <div class="roadmap-item">Statistics & Mathematics</div>
+                            <div class="roadmap-item">Data Preprocessing</div>
+                            <div class="roadmap-item">ML Algorithms</div>
+                            <div class="roadmap-item">Deep Learning (TensorFlow/PyTorch)</div>
+                            <div class="roadmap-item">Model Deployment</div>
+                        </div>
+                        <h4>Free Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@AndrewNgML" target="_blank">📺 Andrew Ng - Machine Learning</a></li>
+                            <li><a href="https://www.youtube.com/@3Blue1Brown" target="_blank">📺 3Blue1Brown - Neural Networks</a></li>
+                            <li><a href="https://www.youtube.com/@sentdex" target="_blank">📺 Sentdex - Python ML</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>📊 Data Science Roadmap</h3>
+                        <div class="roadmap">
+                            <div class="roadmap-item">Programming (Python/R)</div>
+                            <div class="roadmap-item">Statistics & Probability</div>
+                            <div class="roadmap-item">Data Visualization</div>
+                            <div class="roadmap-item">SQL & Databases</div>
+                            <div class="roadmap-item">Machine Learning</div>
+                            <div class="roadmap-item">Big Data Tools</div>
+                        </div>
+                        <h4>Free Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@krishnaik06" target="_blank">📺 Krish Naik - Data Science</a></li>
+                            <li><a href="https://www.youtube.com/@codebasics" target="_blank">📺 Codebasics - Python for DS</a></li>
+                            <li><a href="https://www.youtube.com/@StatQuestwithJoshStarmer" target="_blank">📺 StatQuest - Statistics</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>📈 Data Analytics Roadmap</h3>
+                        <div class="roadmap">
+                            <div class="roadmap-item">Excel Mastery</div>
+                            <div class="roadmap-item">SQL for Data Analysis</div>
+                            <div class="roadmap-item">Python/R for Analytics</div>
+                            <div class="roadmap-item">Data Visualization Tools</div>
+                            <div class="roadmap-item">Business Intelligence</div>
+                            <div class="roadmap-item">Statistical Analysis</div>
+                        </div>
+                        <h4>Free Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@alextheanalyst" target="_blank">📺 Alex The Analyst</a></li>
+                            <li><a href="https://www.youtube.com/@LukeBaron" target="_blank">📺 Luke Barousse - SQL & Analytics</a></li>
+                            <li><a href="https://www.youtube.com/@PowerBIwithAdam" target="_blank">📺 Power BI with Adam</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🔧 GitHub & Version Control</h3>
+                        <p><strong>What is Git?</strong> Git is a version control system that tracks changes in your code and allows collaboration with other developers.</p>
+                        <p><strong>Why GitHub?</strong> GitHub hosts your code repositories online, showcases your projects to employers, and enables open-source contributions.</p>
+                        <h4>How to use GitHub:</h4>
+                        <ul class="link-list">
+                            <li>• Create repositories for your projects</li>
+                            <li>• Write clear commit messages</li>
+                            <li>• Maintain a good README file</li>
+                            <li>• Use branches for feature development</li>
+                            <li>• Contribute to open source projects</li>
+                        </ul>
+                        <h4>Free Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank">📺 Git and GitHub Tutorial</a></li>
+                            <li><a href="https://www.youtube.com/@GitKraken" target="_blank">📺 GitKraken - Git Tutorials</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Communication Section -->
+        <section id="communication" class="section">
+            <div class="container">
+                <h2>Communication Skills</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>📚 Syllabus</h3>
+                        <ul class="link-list">
+                            <li>• English Grammar Fundamentals</li>
+                            <li>• Vocabulary Building</li>
+                            <li>• Public Speaking</li>
+                            <li>• Presentation Skills</li>
+                            <li>• Email Writing</li>
+                            <li>• Group Discussions</li>
+                            <li>• Body Language</li>
+                            <li>• Active Listening</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🎥 Learning Resources</h3>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@ChetChat" target="_blank">📺 Chet Chat - Communication Skills</a></li>
+                            <li><a href="https://www.youtube.com/@EnglishwithLucy" target="_blank">📺 English with Lucy</a></li>
+                            <li><a href="https://www.youtube.com/@TED" target="_blank">📺 TED Talks - Public Speaking</a></li>
+                            <li><a href="https://www.grammarly.com/" target="_blank">✍️ Grammarly - Writing Assistant</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interview Preparation Section -->
+        <section id="interview" class="section">
+            <div class="container">
+                <h2>Interview Preparation - Your Final Step to Success</h2>
+                <div class="cards-grid">
+                    <!-- Technical Interview Preparation -->
+                    <div class="card">
+                        <h3>💻 Technical Interview Mastery</h3>
+                        <div class="interview-tips">
+                            <div class="tip-category">
+                                <h4>Before the Interview:</h4>
+                                <ul class="tips-list">
+                                    <li>Research the company's tech stack and recent projects</li>
+                                    <li>Practice coding on a whiteboard or shared screen</li>
+                                    <li>Review your projects thoroughly - be ready to explain every line</li>
+                                    <li>Prepare 3-4 detailed project explanations using STAR method</li>
+                                    <li>Mock interview with friends or use online platforms</li>
+                                </ul>
+                            </div>
+                            <div class="tip-category">
+                                <h4>During Coding Rounds:</h4>
+                                <ul class="tips-list">
+                                    <li>Think aloud - explain your approach before coding</li>
+                                    <li>Start with brute force, then optimize</li>
+                                    <li>Ask clarifying questions about edge cases</li>
+                                    <li>Write clean, readable code with proper variable names</li>
+                                    <li>Test your solution with sample inputs</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4>Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@GauravSensei" target="_blank">📺 Gaurav Sen - System Design</a></li>
+                            <li><a href="https://www.youtube.com/@TechDummiesNarendraL" target="_blank">📺 Tech Dummies - Interview Tips</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- HR Interview Excellence -->
+                    <div class="card">
+                        <h3>🤝 HR Interview Excellence</h3>
+                        <div class="interview-tips">
+                            <div class="tip-category">
+                                <h4>Must-Prepare Questions:</h4>
+                                <ul class="tips-list">
+                                    <li>"Tell me about yourself" - 2-minute elevator pitch</li>
+                                    <li>"Why do you want this role?" - Show genuine interest</li>
+                                    <li>"What are your strengths and weaknesses?"</li>
+                                    <li>"Where do you see yourself in 5 years?"</li>
+                                    <li>"Why should we hire you over other candidates?"</li>
+                                </ul>
+                            </div>
+                            <div class="tip-category">
+                                <h4>Pro Tips:</h4>
+                                <ul class="tips-list">
+                                    <li>Maintain eye contact and confident body language</li>
+                                    <li>Prepare 2-3 intelligent questions about the company</li>
+                                    <li>Use specific examples from your experience</li>
+                                    <li>Show enthusiasm and positive attitude</li>
+                                    <li>Follow up with a thank-you email within 24 hours</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Mock Interview Tools -->
+                    <div class="card">
+                        <h3>🤖 Practice Platforms</h3>
+                        <ul class="link-list">
+                            <li><a href="https://www.pramp.com/" target="_blank">💼 Pramp - Live Mock Interviews</a></li>
+                            <li><a href="https://interviewing.io/" target="_blank">🎯 Interviewing.io</a></li>
+                            <li><a href="https://www.interviewbit.com/" target="_blank">💻 InterviewBit</a></li>
+                            <li><a href="https://www.mockquestions.com/" target="_blank">❓ Mock Questions</a></li>
+                            <li><a href="https://leetcode.com/interview/" target="_blank">🧠 LeetCode Interview</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- STAR Technique -->
+                    <div class="card">
+                        <h3>⭐ STAR Technique for Project Explanation</h3>
+                        <div class="interview-tips">
+                            <p><strong>Master this framework for any behavioral question:</strong></p>
+                            <div class="tip-category">
+                                <ul class="tips-list">
+                                    <li><strong>Situation:</strong> Set the context - What problem existed?</li>
+                                    <li><strong>Task:</strong> Your specific responsibility in that situation</li>
+                                    <li><strong>Action:</strong> Detailed steps you took, technologies used, challenges overcome</li>
+                                    <li><strong>Result:</strong> Quantifiable outcomes, impact, lessons learned</li>
+                                </ul>
+                            </div>
+                            <div style="margin-top: 1rem; padding: 1rem; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                                <p><strong>Example:</strong> "In my e-commerce project <em>(Situation)</em>, I was responsible for implementing the payment gateway <em>(Task)</em>. I researched multiple APIs, chose Stripe for its security, integrated it using React and Node.js, and handled error scenarios with proper user feedback <em>(Action)</em>. This resulted in a 15% increase in successful transactions and improved user experience, teaching me the importance of user-centric design <em>(Result)</em>."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resume & Portfolio -->
+                    <div class="card">
+                        <h3>📝 Resume & Portfolio Optimization</h3>
+                        <div class="interview-tips">
+                            <div class="tip-category">
+                                <h4>Resume Must-Haves:</h4>
+                                <ul class="tips-list">
+                                    <li>ATS-friendly format with clear sections</li>
+                                    <li>Quantified achievements (improved performance by X%)</li>
+                                    <li>Relevant keywords from job description</li>
+                                    <li>2-3 strong projects with tech stack mentioned</li>
+                                    <li>Skills section aligned with job requirements</li>
+                                </ul>
+                            </div>
+                            <div class="tip-category">
+                                <h4>Portfolio Essentials:</h4>
+                                <ul class="tips-list">
+                                    <li>Live deployed projects, not just GitHub links</li>
+                                    <li>Clear project descriptions with problem-solution approach</li>
+                                    <li>Screenshots/demos showing key features</li>
+                                    <li>Professional GitHub profile with consistent activity</li>
+                                    <li>LinkedIn profile optimized with professional photo</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4>Resources:</h4>
+                        <ul class="link-list">
+                            <li><a href="https://www.youtube.com/@ClementMihailescu" target="_blank">📺 Clement Mihailescu - Resume Tips</a></li>
+                            <li><a href="https://resume.io/" target="_blank">📄 Resume.io - Resume Builder</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Interview Day Success -->
+                    <div class="card">
+                        <h3>🎯 Interview Day Success Strategy</h3>
+                        <div class="interview-tips">
+                            <div class="tip-category">
+                                <h4>24 Hours Before:</h4>
+                                <ul class="tips-list">
+                                    <li>Review your resume and be ready to explain every point</li>
+                                    <li>Prepare your setup for online interviews (lighting, audio, backup internet)</li>
+                                    <li>Practice your elevator pitch one last time</li>
+                                    <li>Research the interviewer on LinkedIn if possible</li>
+                                    <li>Get a good night's sleep - avoid last-minute cramming</li>
+                                </ul>
+                            </div>
+                            <div class="tip-category">
+                                <h4>During the Interview:</h4>
+                                <ul class="tips-list">
+                                    <li>Join 2-3 minutes early, never late</li>
+                                    <li>Have a glass of water nearby</li>
+                                    <li>Keep your resume, notepad, and pen ready</li>
+                                    <li>Smile genuinely and maintain professional enthusiasm</li>
+                                    <li>If you don't know something, be honest but show willingness to learn</li>
+                                </ul>
+                            </div>
+                            <div class="tip-category">
+                                <h4>Handling Rejection:</h4>
+                                <ul class="tips-list">
+                                    <li>Ask for specific feedback on areas to improve</li>
+                                    <li>Thank them for the opportunity and stay connected</li>
+                                    <li>Analyze what went wrong and work on those areas</li>
+                                    <li>Remember: Rejection is redirection to something better</li>
+                                    <li>Keep applying - interviews are a numbers game</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback" class="section">
+            <div class="container">
+                <h2>Feedback & Doubts</h2>
+                <div class="form-container">
+                    <form id="feedbackForm">
+                        <div class="form-group">
+                            <label for="feedbackType">Type:</label>
+                            <select id="feedbackType" name="feedbackType" required>
+                                <option value="">Select type</option>
+                                <option value="feedback">General Feedback</option>
+                                <option value="doubt">Technical Doubt</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="bug">Report Bug</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject:</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email (optional):</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <button type="submit" class="btn">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignInModal()">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signInForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            <p style="margin-top: 1rem; text-align: center;">
+                Don't have an account? <a href="#" onclick="switchToSignUp()" style="color: var(--primary-color);">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignUpModal()">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signUpForm">
+                <div class="form-group">
+                    <label for="signUpName">Full Name:</label>
+                    <input type="text" id="signUpName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpEmail">Email:</label>
+                    <input type="email" id="signUpEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpPassword">Password:</label>
+                    <input type="password" id="signUpPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpCollege">College/University:</label>
+                    <input type="text" id="signUpCollege" name="college">
+                </div>
+                <div class="form-group">
+                    <label for="signUpYear">Year of Study:</label>
+                    <select id="signUpYear" name="year">
+                        <option value="">Select year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                        <option value="graduate">Graduate</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <p style="margin-top: 1rem; text-align: center;">
+                Already have an account? <a href="#" onclick="switchToSignIn()" style="color: var(--primary-color);">Sign In</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" style="display: none; position: fixed; top: 100px; right: 20px; background: #10b981; color: white; padding: 1rem 2rem; border-radius: 10px; box-shadow: var(--shadow); z-index: 3000;">
+        <span id="successText">Success!</span>
+    </div>
+
+    <script>
+        // Global state
+        let currentUser = null;
+        let currentTheme = 'dark'; // Default to dark theme
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set dark theme as default
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+            
+            // Load saved theme preference if exists
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                currentTheme = savedTheme;
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+            }
+
+            // Load saved user
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForLoggedInUser();
+            }
+        });
+
+        // Theme toggle
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            document.querySelector('.theme-toggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            // Close mobile menu when navigating
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+            
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Modal functions
+        function openSignInModal() {
+            document.getElementById('signInModal').style.display = 'block';
+        }
+
+        function closeSignInModal() {
+            document.getElementById('signInModal').style.display = 'none';
+        }
+
+        function openSignUpModal() {
+            document.getElementById('signUpModal').style.display = 'block';
+        }
+
+        function closeSignUpModal() {
+            document.getElementById('signUpModal').style.display = 'none';
+        }
+
+        function switchToSignUp() {
+            closeSignInModal();
+            openSignUpModal();
+        }
+
+        function switchToSignIn() {
+            closeSignUpModal();
+            openSignInModal();
+        }
+
+        // Success message
+        function showSuccessMessage(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            successText.textContent = message;
+            successDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Form submissions
+        document.getElementById('signInForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple validation (in real app, this would be server-side)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                updateUIForLoggedInUser();
+                closeSignInModal();
+                showSuccessMessage('Successfully signed in!');
+            } else {
+                alert('Invalid credentials. Please try again or sign up.');
+            }
+        });
+
+        document.getElementById('signUpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const userData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                college: formData.get('college'),
+                year: formData.get('year'),
+                joinDate: new Date().toISOString()
+            };
+            
+            // Save user data
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Check if email already exists
+            if (users.some(u => u.email === userData.email)) {
+                alert('Email already registered. Please use a different email or sign in.');
+                return;
+            }
+            
+            users.push(userData);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            currentUser = userData;
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            updateUIForLoggedInUser();
+            closeSignUpModal();
+            showSuccessMessage('Account created successfully!');
+        });
+
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const feedbackData = {
+                type: formData.get('feedbackType'),
+                subject: formData.get('subject'),
+                message: formData.get('message'),
+                email: formData.get('email'),
+                timestamp: new Date().toISOString(),
+                user: currentUser ? currentUser.name : 'Anonymous'
+            };
+            
+            // Save feedback
+            const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+            feedbacks.push(feedbackData);
+            localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+            
+            // Reset form
+            e.target.reset();
+            showSuccessMessage('Thank you for your feedback!');
+        });
+
+        // Update UI for logged in user
+        function updateUIForLoggedInUser() {
+            const signinBtn = document.querySelector('.signin-btn');
+            if (currentUser) {
+                signinBtn.textContent = `Hi, ${currentUser.name.split(' ')[0]}`;
+                signinBtn.onclick = logout;
+            }
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                const signinBtn = document.querySelector('.signin-btn');
+                signinBtn.textContent = 'Sign In';
+                signinBtn.onclick = openSignInModal;
+                showSuccessMessage('Logged out successfully!');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const signInModal = document.getElementById('signInModal');
+            const signUpModal = document.getElementById('signUpModal');
+            
+            if (e.target === signInModal) {
+                closeSignInModal();
+            }
+            if (e.target === signUpModal) {
+                closeSignUpModal();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navLinks = document.getElementById('navLinks');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Progress tracking
+        function trackProgress(section) {
+            if (!currentUser) return;
+            
+            const progress = JSON.parse(localStorage.getItem(`progress_${currentUser.email}`) || '{}');
+            progress[section] = progress[section] ? progress[section] + 1 : 1;
+            progress.lastVisited = new Date().toISOString();
+            
+            localStorage.setItem(`progress_${currentUser.email}`, JSON.stringify(progress));
+        }
+
+        // Track section visits
+        const originalShowSection = showSection;
+        showSection = function(sectionId) {
+            originalShowSection(sectionId);
+            trackProgress(sectionId);
+        };
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSignInModal();
+                closeSignUpModal();
+                document.getElementById('navLinks').classList.remove('active');
+            }
+        });
+
+        console.log("TechCareer Prep website loaded successfully!");
+        console.log("Features: Dark mode default, Mobile responsive, Enhanced interview section, About section added");
+    </script>
+</body>
+</html>
