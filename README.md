@@ -3,7 +3,7 @@
 A comprehensive platform designed to guide students through their IT career preparation journey, from aptitude building to interview success.
 
 ## 🚀 Live Demo
-[View Live Website](https://yourusername.github.io/techcareer-prep)
+[View Live Website](https://moulabidudekula.github.io/techcareer-prep)
 
 ## 📖 About
 
