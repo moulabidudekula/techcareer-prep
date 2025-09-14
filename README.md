@@ -3,7 +3,7 @@
 A comprehensive platform designed to guide students through their IT career preparation journey, from aptitude building to interview success.
 
 ## 🚀 Live Demo
-[View Live Website](https://yourusername.github.io/techcareer-prep)
+[View Live Website](https://moulabidudekula.github.io/techcareer-prep)
 
 ## 📖 About
 
@@ -39,7 +39,7 @@ As a final-year B.Tech student at G Pullaiah College of Engineering and Technolo
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/techcareer-prep.git
+   git clone https://github.com/moulabidudekula/techcareer-prep.git
    cd techcareer-prep
    ```
 
@@ -108,7 +108,7 @@ Contributions are welcome! Here's how you can help:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](License) file for details.
 
 ## 👤 Author
 
